@@ -1,0 +1,24 @@
+#BLE 연결 간헐적 오류
+
+https://stackoverflow.com/questions/23110295/difference-between-close-and-disconnect
+
+https://stackoverflow.com/questions/23110295/difference-between-close-and-disconnect
+
+
+Unreal Engine 언리얼로 모바일 게임을 만드는데, DelegateSomething().AddUObject을 세번 바인딩 하는 실수를 저질렀다. 
+
+근데 안드로이드는 정상적으로 작동하고 IOS 만 작동을 안했다. 
+
+왜 그런 것일까??
+
+​
+
+​
+
+​
+
+이벤트 중복 바인딩 문제: 두 번 바인딩된 이벤트 핸들러가 호출되면서, iOS 플랫폼에서는 메모리 관리나 이벤트 처리 방식의 차이로 인해 문제가 발생할 수 있습니다. 안드로이드는 이 부분을 무시하거나 정상적으로 처리할 수 있지만, iOS에서는 이로 인해 충돌이 발생할 수 있습니다.
+
+메모리 관리 차이: iOS의 ARC(Automatic Reference Counting)는 메모리 관리를 자동으로 하지만, 이 과정에서 두 번 바인딩된 이벤트 핸들러가 예상치 못한 방식으로 해제되거나 참조가 중복될 수 있습니다. 이는 충돌이나 비정상 동작을 초래할 수 있습니다.
+
+플랫폼별 이벤트 처리 방식: 안드로이드와 iOS는 이벤트를 처리하는 방식에 차이가 있을 수 있습니다. 안드로이드는 두 번 바인딩된 이벤트 핸들러를 순차적으로 호출하지만, iOS는 동일한 이벤트에 대한 중복 호출을 예외 처리할 가능성이 있습니다.
