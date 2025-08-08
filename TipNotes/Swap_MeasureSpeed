@@ -1,0 +1,76 @@
+
+//[C++]두 정수를 교환하는 여러 가지 알고리즘 속도 비교
+
+#include <iostream>
+#include <algorithm>
+#include <time.h>
+using namespace std;
+ 
+#define SWAP(x,y,t) {t=x;x=y;y=t;}
+ 
+void inline Swap(int& left, int& right)
+{
+     int t;
+     t = left;
+     left = right;
+     right = t;
+}
+
+
+int main()
+{
+     time_t t1, t2;
+     int left = 3, right = 4;
+ 
+     // STL의 swap 함수
+     time(&t1);
+     for (int i = 0; i < 1000000001; i++) {
+          std::swap(left, right);
+     }
+     time(&t2);
+     printf("[****STL****] swap : left=%d, right = %d, Time=%d Sec\n", left, right, (int)difftime(t2, t1));
+ 
+     // 직접 만든 Swap 함수
+     time(&t1);
+     for (int i = 0; i < 1000000001; i++) {
+          Swap(left, right);
+     }
+     time(&t2);
+     printf("[***Custom**] Swap : left=%d, right = %d, Time=%d Sec\n", left, right, (int)difftime(t2, t1));
+ 
+     // 매크로 함수
+     time(&t1);
+     int t;
+     for (int i = 0; i < 1000000001; i++) {
+          SWAP(left, right, t);
+     }
+     time(&t2);
+     printf("[***Macro***] SWAP : left=%d, right = %d, Time=%d Sec\n", left, right, (int)difftime(t2, t1));
+ 
+     // 직접 교환
+     time(&t1);
+     for (int i = 0; i < 1000000001; i++) {
+          t = left; left = right; right = t;
+     }
+     time(&t2);
+     printf("[**Directly*] swap : left=%d, right = %d, Time=%d Sec\n", left, right, (int)difftime(t2, t1));
+ 
+     // +/-
+     time(&t1);
+     for (int i = 0; i < 1000000001; i++) {
+          left = left + right; right = left - right; left = left - right;
+     }
+     time(&t2);
+     printf("[****+/-****] swap : left=%d, right = %d, Time=%d Sec\n", left, right, (int)difftime(t2, t1));
+
+     // XOR
+     time(&t1);
+     for (int i = 0; i < 1000000001; i++) {
+          left = left ^ right; right = left ^ right; left = left ^ right;
+     }
+     time(&t2);
+     printf("[****XOR****] swap : left=%d, right = %d, Time=%d Sec\n", left, right, (int)difftime(t2, t1));
+}
+
+
+
